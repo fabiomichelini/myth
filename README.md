@@ -9,4 +9,15 @@ Based on ```Linux``` and ```Node```.
 Just generate/customize ssl certs (see meetserver.js at line 36).
 
 ### screenshot
+
+Entrance
+
 <img src="/served/images/screenshot1.png" width="300" />
+
+Speaker view
+
+<img src="/served/images/screenshot2.png" width="300" />
+
+Grid view
+
+<img src="/served/images/screenshot3.png" width="300" />
