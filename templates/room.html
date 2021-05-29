@@ -1,0 +1,159 @@
+<html>
+
+    <head>
+
+        <title>Meet - {{ roomName }}</title>
+        
+        <!-- meta tags -->
+
+        <meta charset='utf-8' />
+        
+        <meta name='description' content='Meet'>
+        <meta name='author' content='Fabio Michelini'>
+
+        <meta name='viewport' content='width=device-width,initial-scale=1'/>
+
+        <!-- favicon, sitemap, robots -->
+        
+        <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+        <link rel='sitemap' href='/sitemap.xml' />
+        <link rel='robot' href='/robots.txt' />
+        
+        <!-- css files -->
+        
+        <link href='/served/css/client.css' type='text/css' rel='stylesheet'>
+
+    </head>
+
+    <body onresize='omUpdateView(null, null);'>
+
+        <div class='top'>
+
+            <div class='top-header'>
+
+                <button class='top-header-switch-left-panel-btn big-btn' onclick='omSwitchLeftPanel();'><img src='/served/icons/left_panel.png'></button>
+
+                <span class='top-header-title expendable'>{{ roomName }}</span>
+
+            </div>
+
+            <div class='top-menu'>
+
+                <div class='top-view-btn big-btn' onclick='omToggleView();'><img class='top-view-icon medium-icon' src='/served/icons/view-speaker.png' alt='view icon'></div> 
+
+                {% if guestId == roomLeaderId %} 
+                    <div class='top-start-stop-metronome-btn big-btn' onclick='omStartStopMetronome(90, 4)'><img class='medium-icon' src='/served/icons/metronome.png' alt='metronome icon'></div> 
+                {% endif %}
+                <div class='top-start-stop-share-screen-btn big-btn expendable' onclick='omStartStopShareScreen()'><img class='medium-icon' src='/served/icons/screen.png' alt='screen icon'></div>
+                {% if guestId == roomLeaderId %} 
+                    <div class='top-lock-unlock-btn big-btn' onclick='omLockUnlockRoom()'><img class='top-lock-unlock-icon medium-icon' src='/served/icons/unlocked.png' alt='lock unlock icon'></div> 
+                {% endif %}
+                <div class='top-quit-btn big-btn' onclick='omQuit();'><img class='top-quit-icon medium-icon' src='/served/icons/logout.png' alt='logout icon'></div>
+
+            </div>
+
+        </div>
+
+        <div class='left-panel' style='display: none;'>
+
+            <div class='chat'></div>
+
+            <textarea class='chat-textarea'></textarea>
+
+            <div class='chat-menu'>
+                <button class='chat-menu-send-btnn big-btn' onclick='return omSendChatMsgBroadcast();'>send</button>
+                <button class='chat-menu-uploads-btn big-btn' onclick='document.querySelector(".chat-uploads").click();'>upload</button>
+            </div>
+
+            <input class='chat-uploads' name='chatUploads' type='file' style='display: none;' onchange='omSendChatFileBroadcast();'>
+
+        </div>
+
+        <div class='main-panel'>
+
+            <div class='main-panel-carousel'>
+
+            </div>
+
+            <div class='main-panel-front'>
+
+                <div class='video-container video-container-local video-container-front' ondblclick='omUpdateView(event, "speaker")'>
+
+                    <div class='video-status' onclick='omHideMessage(this);' style='display: none;'>
+                    
+                        <div class='video-status-inner'></div>
+                    
+                    </div>
+
+                    <video class='video-video video-video-front' autoplay>
+                    </video>
+
+                </div>
+
+            </div>
+
+            <div class='main-panel-grid' style='display: none;'>
+            </div>
+
+            <div class='video-container-screen' style='display: none;'>
+
+                <video class='video-video' autoplay></video>
+
+            </div>
+
+            <div class='video-container-template' style='display: none;' ondblclick='omUpdateView(event, "speaker")'>
+
+                <div class='video-stats' style='display: none;'></div>
+
+                <div class='video-status' onclick='omHideMessage(this);' style='display: none;'>
+                
+                    <div class='video-status-inner'></div>
+                
+                </div>
+
+                <video class='video-video' autoplay>
+                    
+                </video>
+
+                <div class='video-bar'>
+
+                    <button class='video-switch-audio-btn big-btn pressed-btn' onclick='return omSwitchRemoteAudio(event);'><img class='medium-icon' src='/served/icons/microphone.png' alt='microphone icon'></button>
+                    <button class='stats-btn big-btn pressed-btn' onclick='return omShowStats(event);'><img class='medium-icon' src='/served/icons/stats.png' alt='stats icon'></button>
+                    <span class='video-guestname-span'></span>
+
+                </div>
+
+            </div>
+
+            <div class='bottom-menu'>
+
+                <div class='bottom-menu-wrapper'>
+    
+                    <button class='bottom-local-switch-audio-btn big-btn pressed-btn' onclick='return omSwitchLocalAudioVideo("audio");'><img class='big-icon' src='/served/icons/microphone.png' alt='microphone icon'></button>
+                    <button class='bottom-local-switch-video-btn big-btn pressed-btn' onclick='return omSwitchLocalAudioVideo("video");'><img class='big-icon' src='/served/icons/camera.png' alt='camera icon'></button>
+                    <button class='bottom-local-switch-container-btn big-btn pressed-btn' onclick='return omSwitchLocalContainer();'><img class='big-icon' src='/served/icons/show.png' alt='local icon'></button>
+                    <input type='text' class='bottom-video-local-guestname-input expendable' onchange='omGuestNameUpdate();' value='{{ guestName }}' name='guestName'>
+
+                </div>
+    
+            </div>
+    
+        </div>
+
+    </body>
+
+    <input type='hidden' value='{{ roomId }}' class='roomId'>
+    <input type='hidden' value='{{ roomName }}' class='roomName'>
+    <input type='hidden' value='{{ roomMode }}' class='roomMode'>
+    <input type='hidden' value='{{ roomLeaderId }}' class='roomLeaderId'>
+    <input type='hidden' value='{{ guestId }}' class='localGuestId'>
+    <input type='hidden' value='{{ guestName }}' class='localGuestName'>
+
+    <!-- js files -->
+
+    <script src='/served/js/utils.js'></script>
+    <script src='/served/js/settings.js'></script>
+    <script src='/served/js/socket.io.min.js'></script>
+    <script src='/served/js/meetclient.js'></script>
+
+</html>

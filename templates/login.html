@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class='login'>
+
+        <form class='form' method='POST' action='' enctype='application/x-www-form-urlencoded'>
+        
+            <div class='errors'>{{ form_errors }}</div>
+        
+            <ul>
+                <li>
+                    <label for='username' class='required'>username</label><br>
+                    <input class="login-username" type="text" name="username" required />
+                </li>
+                
+                <li>
+                    <label for='password' class='required'>password</label><br>
+                    <input class='login-password' type="password" name="password" required />
+                </li>      
+                
+                <li>                        
+                </li>
+                
+                <li>                        
+                    <button class='btn' type="submit">invia</button>
+                </li>
+                
+            </ul>
+            
+        </form>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+  "sx03a1gf3w": {
+    "id": "sx03a1gf3w",
+    "name": "Example Room",
+    "mode": "leaded",
+    "leaderId": "se6y9w2l0x8",
+    "type": "persistent",
+    "private": false,
+    "guests": [],
+    "registered": [],
+    "status": "unlocked"
+  }
+}

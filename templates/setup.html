@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="setup">
+
+        <div class='errors'></div>
+
+        <form class='setup-form' method='POST' action='/room/{{ roomId }}' enctype='application/x-www-form-urlencoded' onsubmit='return omSubmitRoomForm();'>
+
+            {% if room %}
+
+                {% if room.status == 'locked' %}
+                    <div class='setup-locked-msg'>
+                        The room is currently locked. The room manager has been advised. Pleas wait.
+                    </div>
+                {% endif %}
+
+                <fieldset class='room'>
+
+                    <ul>
+
+                        <li>
+                            room name<br>
+                            <input type='text' class='room-name' name='roomName' value='{{ roomName }}' readonly>
+                        </li>
+                        <li>
+                            room mode<br>
+                            <input type='text' class='room-mode' name='roomMode' value='{{ roomMode }}' readonly>
+                        </li>
+
+                    </ul>
+
+                </fieldset>
+
+            {% else %}
+
+                <fieldset class='room'>
+
+                    <ul>
+
+                        <li>
+                            choice a room name<br>
+                            <input class='room-name' type='text' name='roomName'value='{{ roomName }}' oninput='omCheckRoomForm();'>
+                        </li>
+
+                        <li>choice a room mode <span class='setup-mode-info' onclick='omShowMessage("info about...");'>?</span>
+                            
+                            <ul>
+                                <li>                                    
+                                    <input type='radio' name='roomMode' value='democratic' disabled>&nbsp;&nbsp;&nbsp;democratic
+                                </li>
+                                <li>                                    
+                                    <input type='radio' name='roomMode' value='leaded' checked='checked'>&nbsp;&nbsp;&nbsp;leaded
+                                </li>
+                                <li>                                    
+                                    <input type='radio' name='roomMode' value='class' disabled>&nbsp;&nbsp;&nbsp;class
+                                </li>
+                            </ul>
+
+                        </li>
+
+                    <ul>
+
+                </fieldset>
+
+                {% if user and rooms.length > 0 %}
+
+                    <br>or<br><br>
+
+                    <fieldset class='room-radio'>
+
+                        <ul>
+
+                            <li>choice a room                            
+                                <ul>
+                                    <li><input type='radio' class='room-radio-opt' name='roomRadioOpt' value='clear' onchange='omRadioRoomChanged();' checked='checked'>&nbsp;&nbsp;&nbsp;nothing
+                                    </li>
+                                    {% for r in rooms %}
+                                        <li>
+                                            <input type='radio' class='room-radio-opt' name='roomRadioOpt' value='{{ r.id }}' onchange='omRadioRoomChanged();'>&nbsp;&nbsp;&nbsp;{{ r.name }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+        
+                        </ul>
+
+                    </fieldset>
+
+                {% endif %}
+
+            {% endif %}
+
+            <br>
+            <fieldset>
+
+                <ul>
+
+                    {% if user %}
+                        <li>
+                            your name<br>
+                            <input class='guest-name' type='text' name='guestName' value='{{ guestName }}' readonly>
+                        </li>
+                    {% else %}
+                        <li>
+                            choice your name<br>
+                            <input class='guest-name' name='guestName' type='text' value='{{ guestName }}' oninput='omCheckRoomForm();'>
+                        </li>
+                    {% endif %}
+
+                </ul>
+
+            </fieldset>
+
+            <input type="hidden" class="guest-id" name="guestId" value='{{ guestId }}'>
+            <input type="hidden" class="csrf" name="csrf" value='{{ csrf }}'>
+
+            <br>
+            <button type='submit' class='submit-btn big-btn' disabled>start</button>
+                
+        </form>
+
+    </div>
+
+    <script src='/served/js/utilities.js' type="text/javascript"></script>
+
+    {% if room.status == 'locked' %}
+        <script src='/served/js/socket.io.min.js'></script>
+    {% endif %}
+
+    <script>
+
+        function omCheckRoomForm() {
+
+            let roomName;
+
+            const roomRadioOpt = document.querySelector('.room-radio-opt:checked');
+
+            if (!roomRadioOpt || roomRadioOpt.value === 'nothing') {
+
+                roomName = document.querySelector('.room-name').value;
+
+            } else {
+
+                roomName = true;
+            }
+            const guestName = document.querySelector('.guest-name').value;
+            const valid = (roomName !== '' && guestName !== '');
+            const btn = document.querySelector('.submit-btn');
+
+            btn.disabled = !valid;   
+            btn.className = 'submit-btn big-btn' + (valid && ' enabled-btn' || '');
+
+            if (valid) {
+
+                setCookie('guestName', guestName);
+            }
+
+            return valid;
+        }
+
+        function omRadioRoomChanged() {
+
+            const el = document.querySelector('.room-radio-opt:checked');
+            
+            if (el && el.value === 'clear') {
+
+                document.querySelector('.room').disabled = false;
+
+            } else {
+
+                document.querySelector('.room').disabled = true;
+            }
+        }
+
+        function omSubmitRoomForm() {
+
+            return omCheckRoomForm();
+        }
+        omCheckRoomForm();
+
+        {% if room.status == 'locked' %}
+
+            sock = io.connect('/waiting', {     
+
+                rejectUnauthorized: false, 
+                reconnection: false, 
+                secure: true, 
+                query: {
+                    roomId: '{{ roomId }}', 
+                    guestName: '{{ guestName }}', 
+                }, 
+                transports: ["polling", "websocket"],
+            });
+
+            sock.on('room-unlocked', () => {
+    
+                document.querySelector('.submit-btn').click();
+            });
+
+        {% endif %}
+        
+    </script>
+
+{% endblock %}
+

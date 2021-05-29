@@ -1,0 +1,13 @@
+[
+  {
+    "id": "se6y9w2l0x8",
+    "username": "guest",
+    "password": "guest",
+    "firstname": "Guest",
+    "surname": "Guest",
+    "email": "",
+    "role": "guest",
+    "status": "ACTIVE",
+    "rooms": []
+  }
+]

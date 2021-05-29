@@ -1,0 +1,207 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+body {
+    background: #202020;
+    color: #ffffff;
+    margin: 0 auto;
+    max-width: 767px;
+}
+
+a {
+    color: #d84a38;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #f5d8d4;
+}
+
+fieldset {
+    border: 1px solid #4a4a49;
+    border-radius: 4px;
+}
+
+.medium-icon {
+    width: 16px;
+    padding: 2px;
+    margin: 0;
+}
+
+.big-btn {
+    background-color: #57575e;
+    border: none;
+    border-radius: 2px;
+    padding: 3px 5px 1px 5px;
+    cursor: pointer;
+    margin: 1px 2px;
+}
+
+.big-btn:hover {
+    /* background-color: #5578ca; */
+    color: #ffffff;
+}
+
+.big-icon {
+    width: 32px;
+    padding: 3px;
+    margin: 0;
+    vertical-align: text-bottom;
+}
+
+
+/*************** layout *****************/
+
+
+.header {
+    z-index: 1000;
+    margin: 10px;
+}
+
+.header-left {
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+.header-right {
+    position: absolute;
+    top:0;
+    right: 0;
+    display: flex;
+}
+
+
+/*************** login *****************/
+
+
+.login {
+    margin: 50px 20px;
+}
+
+.login-username, .login-password {
+    width: 90%;
+    max-width: 20em;
+} 
+
+
+/*************** index *****************/
+
+
+.index {
+    padding: 50px 20px;
+}
+
+.intro {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.menu {
+    border: 1px solid #5e5e5e;
+    margin: 40px 0;
+    border-radius: 3px;
+}
+
+li {
+    list-style: none;
+    margin: 20px;
+}
+
+
+/*************** setup *****************/
+
+
+.setup {
+    padding: 50px 20px;
+}
+
+.setup-locked-msg {
+
+    padding: 20px 0;
+    color: red;
+}
+
+.setup-mode-info {
+    
+    cursor: pointer;
+    padding: 5px 5px;
+    color: yellow;
+    font-weight: bold;
+}
+
+.room-name, .room-mode, .guest-name {
+    width: 90%;
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.readonly {
+    background: transparent;
+    color: white;
+    border: 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.enabled-btn {
+                
+    color: #000000;
+    cursor: pointer;
+}
+
+
+/*************** responsive *****************/
+
+
+@media screen and (max-width: 320px)
+{
+    * {
+        font-size: 20px;
+        position: relative;
+    }
+
+    body {
+        min-width: 318px;
+    }
+}
+@media screen and (min-width: 321px) and (max-width: 481px)
+{
+    * {
+        font-size: 20px;
+    }
+
+    body {
+        min-width: 318px;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 769px)
+{
+    * {
+        font-size: 16px;
+    }
+
+    body {
+        min-width: 480px;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px)
+{
+    * {
+        font-size: 14px;
+    }
+
+    body {
+        min-width: 767px;
+    }
+}
+@media screen and (min-width: 1024px)
+{
+    * {
+        font-size: 14px;
+    }
+}
