@@ -4,9 +4,7 @@ Multi users, speaker/grid view, chat, file/image sharing, screen sharing, leader
   
 ### deployment
 Based on ```Linux``` and ```Node```.
-
-### ssl certs
-Just generate/customize ssl certs (see meetserver.js at line 36).
+Just clone folder and generate/customize ssl certs (see meetserver.js at line 36).
 
 ### screenshot
 
