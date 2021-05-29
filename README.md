@@ -1,6 +1,6 @@
 ## Myth
 Simple video conference tool based on WebRTC.  
-Multi users, screensharing, leader mode, chat, file/image sharing.
+Multi users, speaker/grid view, chat, file/image sharing, screen sharing, leader mode.
   
 ### deployment
 Based on ```Linux``` and ```Node```.
