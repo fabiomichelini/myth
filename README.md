@@ -19,4 +19,4 @@ Grid view (on mobile)
 
 ### demo
 
-On [a link](https://www.corsoservices.net:5000/), try with demo credentials (user: guest, password: guest).
+On [https://www.corsoservices.net:5000](https://www.corsoservices.net:5000), try with demo credentials (user: guest, password: guest).
