@@ -12,11 +12,11 @@ Just generate/customize ssl certs (see meetserver.js at line 36).
 
 Entrance
 
-<img src="/served/images/screenshot1.png" width="300" />
+<img src="/served/images/screenshot1.png" width="500" />
 
 Speaker view
 
-<img src="/served/images/screenshot2.png" width="300" />
+<img src="/served/images/screenshot2.png" width="500" />
 
 Grid view
 
