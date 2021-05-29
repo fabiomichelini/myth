@@ -5,6 +5,7 @@ Multi users, speaker/grid view, chat, file/image sharing, screen sharing, leader
 ### deployment
 Based on ```Linux``` and ```Node```.
 Just clone folder and generate/customize ssl certs (see meetserver.js at line 36).
+Serve on port 5000 for example with ```pm2 start meetserver.js```.
 
 ### screenshot
 
